@@ -1,0 +1,168 @@
+ /* Defining variables */
+
+@define-color color_234_dark0_hard     #1d2021;
+@define-color color_235_dark0          #282828;
+@define-color color_236_dark0_soft     #32302f;
+@define-color color_237_dark1          #3c3836;
+@define-color color_239_dark2          #504945;
+@define-color color_241_dark3          #665c54;
+@define-color color_243_dark4          #7c6f64;
+@define-color color_243_dark4_256      #7c6f64;
+@define-color color_245_gray_245       #928374;
+@define-color color_244_gray_244       #928374;
+@define-color color_230_light0_hard    #f9f5d7;
+@define-color color_229_light0         #fbf1c7;
+@define-color color_228_light0_soft    #f2e5bc;
+@define-color color_223_light1         #ebdbb2;
+@define-color color_250_light2         #d5c4a1;
+@define-color color_248_light3         #bdae93;
+@define-color color_246_light4         #a89984;
+@define-color color_246_light4_256     #a89984;
+@define-color color_167_bright_red     #fb4934;
+@define-color color_142_bright_green   #b8bb26;
+@define-color color_214_bright_yellow  #fabd2f;
+@define-color color_109_bright_blue    #83a598;
+@define-color color_175_bright_purple  #d3869b;
+@define-color color_108_bright_aqua    #8ec07c;
+@define-color color_208_bright_orange  #fe8019;
+@define-color color_124_neutral_red    #cc241d;
+@define-color color_106_neutral_green  #98971a;
+@define-color color_172_neutral_yellow #d79921;
+@define-color color_066_neutral_blue   #458588;
+@define-color color_132_neutral_purple #b16286;
+@define-color color_072_neutral_aqua   #689d6a;
+@define-color color_166_neutral_orange #d65d0e;
+@define-color color_088_faded_red      #9d0006;
+@define-color color_100_faded_green    #79740e;
+@define-color color_136_faded_yellow   #b57614;
+@define-color color_024_faded_blue     #076678;
+@define-color color_096_faded_purple   #8f3f71;
+@define-color color_066_faded_aqua     #427b58;
+@define-color color_130_faded_orange   #af3a03;
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Ubuntu Nerd Font";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: @color_234_dark0_hard;
+    color: @color_246_light4; 
+    /*border-bottom: 2px dashed #a678d3;*/
+    /*border-top: 2px dashed #a678d3;*/
+    /*padding-top: 5px;*/
+    /*
+    transition-property: background-color;
+    transition-duration: .5s;*/
+}
+
+#workspaces button {
+    padding: 1 5px;
+    color: inherit;
+    font-weight: 600;
+    border-right: 1px solid @color_130_faded_orange;
+}
+
+#workspaces button.focused {
+    color: @color_208_bright_orange;
+    border-top: 2px solid @color_208_bright_orange;
+}
+
+#workspaces button.urgent {
+    background-color: @color_096_faded_purple;
+}
+
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode {
+    padding: 0 2px;
+    margin: 0 2px;
+}
+
+#clock {
+    font-weight: bold;
+    color: @color_109_bright_blue;
+}
+
+#language {
+    color: @color_229_light022;
+}
+
+#battery {
+    font-weight: bold;
+    color: @color_172_neutral_yellow;
+}
+
+#battery.charging {
+    font-weight: bold;
+    color: @color_108_bright_aqua;
+}
+
+#battery.charging.critical {
+    font-weight: bold;
+    color: @color_167_bright_red;
+}
+
+#pulseaudio {
+    color: @color_108_bright_aqua;
+}
+#pulseaudio.muted {
+    color: @color_100_faded_green;
+}
+
+#network{
+    color: @color_250_light2;
+    padding: 0 5px;
+}
+#network.disconnected {
+    background: @color_096_faded_purple;
+}
+
+
+/*
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+*/
+/*
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid white;
+}
+
+#battery.warning:not(.charging) {
+    color: white;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#cpu {
+}
+
+#memory {
+}
+
+#network {
+}
+
+#network.disconnected {
+    background: #f53c3c;
+}
+
+#pulseaudio {
+}
+
+#custom-spotify {
+    color: rgb(102, 220, 105);
+}
+
+#tray {
+}*/

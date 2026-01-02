@@ -1,0 +1,3 @@
+include /etc/sway/config.d/*
+include ~/.config/sway/core.sway.conf
+include ~/.config/sway/theme.sway.conf

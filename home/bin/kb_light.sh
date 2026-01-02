@@ -1,0 +1,1 @@
+brightnessctl -d asus::kbd_backlight set $1

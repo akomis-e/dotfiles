@@ -1,0 +1,82 @@
+{
+    "layer": "top",
+    "modules-left": ["sway/workspaces", "sway/mode"],
+    "modules-center": ["sway/window"],
+    "modules-right": [
+        // "mpd",
+        // "idle_inhibitor",
+        "pulseaudio",
+        "network",
+        // "power-profiles-daemon",
+        // "cpu",
+        // "memory",
+        // "temperature",
+        // "backlight",
+        // "keyboard-state",
+        "sway/language",
+        "battery",
+        // "battery#bat2",
+        "clock",
+        "tray"
+    ],
+    "sway/window": {
+        "max-length": 50
+    },
+    "pulseaudio":{
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}% ",
+        "format-muted": " 0%",
+        // "format-muted": "🕨",
+        "format-icons": {
+            "alsa_output.pci-0000_00_1f.3.analog-stereo": "",
+            "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
+            "headphones": "",
+            "handsfree": "",
+            "headset": "",
+            "phone": "",
+            "phone-muted": "",
+            "portable": "",
+            "car": "",
+            "default": ["", ""]
+            // "default": ["🕩", "🕪"]
+        },
+    },
+    "sway/language":{
+        "format": "🖮{short}",
+    },
+    "network": {
+        "interface": "wlo1",
+        "format": "{ifname}",
+        "format-wifi": "({essid})",
+        "format-ethernet": "{ifname} ",
+        "format-disconnected": "", //An empty format will hide the module.
+        "format-disconnected": "",
+        "tooltip-format": "{ifname}",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50
+    },
+    "battery": {
+        "bat": "BAT0",
+        "format": " {icon} {capacity}%",
+        "format-charging": "{icon} {capacity}%",
+        "format-plugged": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "states": {
+            // "any":100,
+            "critical": 15
+            // "warning": 30,
+        },
+        // "events": {
+        //     "on-charging-any": "notify-send -u normal 'Battery: charging'",
+        //     "on-charging-critical": "notify-send -u critical 'Battery: capacity below 15%'"
+        // },
+        "on-click": "killall -SIGUSR2 waybar",
+        "tooltip-format": "{}\nClick to reload Waybar"
+    },
+    "clock": {
+        "format-alt": "{:%a, %d. %b  %H:%M}"
+    },
+}
