@@ -1,9 +1,30 @@
-# places all the configs into proper places
-# cd ~/Dropbox/hlib/scripts/linux
+## Fresh system setup
+```bash
 
 
-## Setting up scripts shortcut 
-ln -s ~/Dropbox/hlib/scripts/linux 	~/scripts
+# ARCH - install basic packages
+## sublime text
+curl -O https://download.sublimetext.com/sublimehq-pub.gpg && \
+	sudo pacman-key --add sublimehq-pub.gpg && \
+	sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
+echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+
+sudo pacman -Syu firefox git neovim \
+	eza bat bottom procs zoxide
+### --- --- --- --- --- --- --- --- --- ---
+
+git clone https://github.com/akomis-e/config ~/repos/akomis-e/config
+git config --global user.email "greyakomis@gmail.com"
+git config --global user.name "akomis"
+
+sudo sh -c "echo LC_TIME='\"'en_GB.UTF-8'\"'" >> /etc/locale.conf
+
+
+## Setting up scripts shortcuts
+ln -s ~/repos/akomis-e/config 		~/scripts
+
+
+###
 ln -s ~/Dropbox/hlib/music 			~/Music/db-music
 ln -s ~/Dropbox/hlib/music_pl 		~/Music/db-music-pl
 ln -s ~/.config ~/config
@@ -101,3 +122,4 @@ cargo install bat
 cargo install bottom  # to use - btm
 cargo install procs
 cargo install zoxide
+```
