@@ -1,6 +1,7 @@
 ## Fresh system setup
 ```bash
 
+sudo sh -c "echo LC_TIME='\"'en_GB.UTF-8'\"'" >> /etc/locale.conf
 
 # ARCH - install basic packages
 ## sublime text
@@ -11,86 +12,68 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 
 ### installing YAY
 # base-devel - req for yay
-sudo pacman -Syu firefox git neovim \
+sudo pacman -Syu flatpak firefox git neovim \
 	eza bat bottom procs zoxide \
 	base-devel \
+	wofi alacritty zsh acpi \
+	telegram-desktop
 
-cd ~/repos && git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+git config --global user.email "greyakomis@gmail.com"
+git config --global user.name "akomis"
 
+git clone https://aur.archlinux.org/yay-bin.git ~/repos/yay-bin && \
+	cd ~/repos/yay-bin && makepkg -si && cd ~
+git clone https://github.com/akomis-e/config ~/repos/akomis-e/config
+git clone https://github.com/LazyVim/starter ~/.config/nvim
 
-yay -S zen-browser-bin
+yay -S zen-browser-bin dropbox
 
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user flathub org.keepassxc.KeePassXC
 
-# dropbox - manually
-# viber
-wget -P ~/.local/bin https://download.cdn.viber.com/desktop/Linux/viber.AppImage
-# telegram
 
-
-## --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-## ZSH, oh-my-zsh
-# oh-my-zsh: get curl install script:
-# https://github.com/ohmyzsh/ohmyzsh/wiki
-
-# changing shell
 chsh -s $(which zsh)
-mkdir -p ~/.config/zsh/
+
+### oh-my-zsh -- https://github.com/ohmyzsh/ohmyzsh/wiki
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+
+ln -s ~/repos/akomis-e/config 		~/scripts
+ln -s ~/.config 					~/config
+mkdir -p \
+	~/bin \
+	~/.config/sway/scripts \
+	~/.config/wofi/ \
+	~/.config/zsh/ \
+	~/.config/oh-my-zsh/custom/themes/ \
+	~/.config/alacritty/ \
+	~/.config/waybar/ \
+	~/.config/mpd/ \
+	~/.config/rmpc/themes/
+
 mv ~/.zsh*  ~/.config/zsh/
 
-### --- --- --- --- --- --- --- --- --- ---
-
-git clone https://github.com/akomis-e/config ~/repos/akomis-e/config
-git config --global user.email "greyakomis@gmail.com"
-git config --global user.name "akomis"
-
-sudo sh -c "echo LC_TIME='\"'en_GB.UTF-8'\"'" >> /etc/locale.conf
-
-
-## Setting up scripts shortcuts
-ln -s ~/repos/akomis-e/config 		~/scripts
-
-
-###
-ln -s ~/Dropbox/hlib/music 			~/Music/db-music
-ln -s ~/Dropbox/hlib/music_pl 		~/Music/db-music-pl
-ln -s ~/.config ~/config
-
-ln ~/scripts/.zshenv ~/
-
-
-
-### wofi - is a launcher
-ln ~/scripts/home/.config/sway/* 			~/.config/sway/
-ln ~/scripts/home/.config/sway/scripts/* 	~/.config/sway/scripts/
-ln ~/scripts/home/.config/wofi/* 			~/.config/wofi/
-ln ~/scripts/home/.config/waybar/* 			~/.config/waybar/
-
-### terminal stuff
-mkdir ~/bin 
-ln ~/scripts/home/bin/* 								~/bin/
+ln ~/scripts/.zshenv 									~/
+ln ~/scripts/bin/* 										~/bin/
+ln ~/scripts/home/.config/sway/* 						~/.config/sway/
+ln ~/scripts/home/.config/sway/scripts/* 				~/.config/sway/scripts/
+ln ~/scripts/home/.config/wofi/* 						~/.config/wofi/
+ln ~/scripts/home/.config/waybar/* 						~/.config/waybar/
 ln ~/scripts/home/.config/alacritty/* 					~/.config/alacritty/
 ln ~/scripts/home/.config/zsh/.* 						~/.config/zsh/
 ln ~/scripts/home/.config/oh-my-zsh/custom/themes/* 	~/.config/oh-my-zsh/custom/themes/
-# ln ~/scripts/home/.imwheelrc ~/
-## --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-ln ~/scripts/home/.config/mpd/*				~/.config/mpd/
-ln ~/scripts/home/.config/rmpc/* 			~/.config/rmpc/
-ln ~/scripts/home/.config/rmpc/themes/* 	~/.config/rmpc/themes/
-ln ~/scripts/home/.config/nvim/* 			~/.config/nvim/lua
+ln ~/scripts/home/.config/mpd/*							~/.config/mpd/
+ln ~/scripts/home/.config/rmpc/* 						~/.config/rmpc/
+ln ~/scripts/home/.config/rmpc/themes/* 				~/.config/rmpc/themes/
+ln ~/scripts/home/.config/nvim/* 						~/.config/nvim/lua
 
 
+### --- --- --- --- --- --- --- --- --- ---
+ln -s ~/Dropbox/hlib/music 			~/Music/db-music
+ln -s ~/Dropbox/hlib/music_pl 		~/Music/db-music-pl
 
 
 
-
-## --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-## NVIM
-
-
-## --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 
 
