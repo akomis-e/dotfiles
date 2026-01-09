@@ -14,6 +14,7 @@ alias gits="git status"
 
 
 alias p="print"
+alias sshag="eval $(ssh-agent)"
 
 ## Batman
 export BAT_THEME=gruvbox-dark

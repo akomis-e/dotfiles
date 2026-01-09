@@ -4,21 +4,24 @@
     "modules-center": ["sway/window"],
     "modules-right": [
         // "mpd",
-        // "idle_inhibitor",
         "pulseaudio",
         "network",
-        // "power-profiles-daemon",
-        // "cpu",
-        // "memory",
-        // "temperature",
-        // "backlight",
-        // "keyboard-state",
         "sway/language",
         "battery",
-        // "battery#bat2",
-        "clock",
+        "custom/clock",
         "tray"
     ],
+
+    // "clock": {
+    //     "format": "{:%d.%m.%G - %a, %H:%M}"
+    // },
+    "custom/clock": {
+        "exec": "date +'(%Y-%m-%d) %H:%M'",
+        "interval": 60,
+        "tooltip": false,
+        "on-click": "cal > notify-send "
+    },
+
     "sway/window": {
         "max-length": 50
     },
@@ -35,9 +38,9 @@
             "headset": "",
             "phone": "",
             "phone-muted": "",
-            "portable": "",
+            "portable": "r",
             "car": "",
-            "default": ["", ""]
+            "default": [" ", "  "]
             // "default": ["🕩", "🕪"]
         },
     },
@@ -45,9 +48,9 @@
         "format": "🖮{short}",
     },
     "network": {
-        "interface": "wlo1",
+        // "interface": "wlo1",
         "format": "{ifname}",
-        "format-wifi": "({essid})",
+        "format-wifi": "   ({essid})",
         "format-ethernet": "{ifname} ",
         "format-disconnected": "", //An empty format will hide the module.
         "format-disconnected": "",
@@ -58,11 +61,11 @@
         "max-length": 50
     },
     "battery": {
-        "bat": "BAT0",
-        "format": " {icon} {capacity}%",
-        "format-charging": "{icon} {capacity}%",
-        "format-plugged": "{icon} {capacity}%",
-        "format-full": "{icon} {capacity}%",
+        // "bat": "BAT0",
+        "format":           " {icon}  {capacity}%",
+        "format-charging":  "{icon}  {capacity}%",
+        "format-plugged":   "{icon}  {capacity}%",
+        "format-full":      "{icon}  {capacity}%",
         "format-icons": ["", "", "", "", ""],
         "states": {
             // "any":100,
@@ -76,29 +79,24 @@
         "on-click": "killall -SIGUSR2 waybar",
         "tooltip-format": "{}\nClick to reload Waybar"
     },
-    "clock": {
-        "format": "{:%d.%m.%G - %a, %H:%M}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "mode": "month",
-            "on-scroll": 1,
-            "format": {
-                "months": "<span color='#ffead3'><b>{}</b></span>",
-                // "days": "<span color='#ecc6d9'><b>{}</b></span>",
-                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-                // "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+    // "clock": {
+    //     "format": "{:%d.%m.%G - %a, %H:%M}",
 
-                // "days": "<span color='#b57614'>{}</span>",
-                "days": "<span color='#d79921'>{}</span>",
-                "today": "<span color='#fbf1c7'><b>{}</b></span>",
-            }
-        },
-        "actions": {
-            "on-click-right": "mode",
-            "on-click-forward": "tz_up",
-            "on-click-backward": "tz_down",
-            "on-scroll-up": "shift_up",
-            "on-scroll-down": "shift_down"
-        }
-    },
+    //     // "format": "{:%H:%M}",
+    //     // "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    //     // "calendar": {
+    //     //     "mode": "month",
+    //     //     "on-scroll": 1,
+    //     //     "format": {
+    //     //         "months": "<span color='#ffead3'><b>{}</b></span>",
+    //     //         // "days": "<span color='#ecc6d9'><b>{}</b></span>",
+    //     //         "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+    //     //         // "today": "<span color='#ff6699'><b><u>{}</u></b></span>",
+
+    //     //         // "days": "<span color='#b57614'>{}</span>",
+    //     //         "days": "<span color='#d79921'>{}</span>",
+    //     //         "today": "<span color='#fbf1c7'><b>{}</b></span>",
+    //     //     }
+    //     // }
+    // },
 }
