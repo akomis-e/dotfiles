@@ -14,7 +14,7 @@ ZSH_THEME="crunch-edit" # not bad
 # to make LS show all dot files at the top
 export LC_COLLATE="C"
 
-export PATH="${PATH}:${HOME}/.local/bin/:${HOME}/bin/:${HOME}/.cargo/bin"
+export PATH="${HOME}/.local/bin/:${HOME}/bin/:${HOME}/.cargo/bin:${PATH}"
 
 plugins=(
 	git

@@ -14,11 +14,25 @@ alias gits="git status"
 
 
 alias p="print"
+alias o="handlr open"
 alias vi="nvim"
+
+alias inst="sudo pacman -Syu"
+
+alias yayy="yay -Syu --noremovemake --answerclean None --answerdiff None"
 
 function sshag(){
 	eval $(ssh-agent)
 	ssh-add ~/.ssh/id_rsa
+}
+
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
 ## Batman

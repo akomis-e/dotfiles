@@ -1,0 +1,7 @@
+
+# To view a list of all available config options and their default values:
+# 	ghostty +show-config --default --docs
+# Or
+# 	https://ghostty.org/docs/config
+
+theme = Gruvbox Dark Hard

@@ -14,11 +14,15 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 # base-devel 		- req for yay
 # acpi				- to fetch battery info
 # man-db			- for some reason arch I tried didn't have it
+# lemurs			- login manager
+# impala			- wifi util
+# handlers			- tool for setting mime type bindings
 ### sway
 # dunst, libnotify 	- for notifications
 # libappindicator 	- tray icons support
 # wofi				- menu to run stuff, tool for custom scripts
-# dolphin			- file manager
+###
+# cosmic-files 		- file manager
 ### console stuff
 #   git neovim alacritty zsh
 # 	lf ueberzug graphicsmagick ghostscript
@@ -27,15 +31,19 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 # 	7zip jq fd ffmpeg poppler ripgrep fzf resvg wl-clipboard chafa imagemagick yazi
 ### music player setup
 # 	mpd rmpc cava
+
 ### other apps
 sudo pacman -Syu \
-	base-devel acpi man-db \
-	lemurs dunst libnotify libappindicator wofi dolphin\
-	git neovim alacritty zsh \
-	lf ueberzug graphicsmagick ghostscript \
+	base-devel acpi man-db lemurs\
+	impala handlr \
+ 	dunst libnotify libappindicator wofi \
+	cosmic-files \
+	git ghostty zsh neovim \
+	ueberzug graphicsmagick ghostscript \
 	eza bat bottom procs zoxide ueberzugpp \
 	7zip jq fd ffmpeg poppler ripgrep fzf resvg wl-clipboard chafa imagemagick yazi \
 	mpd rmpc cava \
+	gpicview mpv\
 	qbittorrent flatpak firefox telegram-desktop discord 
 
 
@@ -43,21 +51,33 @@ sudo pacman -Syu \
 git clone https://aur.archlinux.org/yay-bin.git ~/repos/yay-bin && \
 	cd ~/repos/yay-bin && makepkg -si && cd ~
 ### My dot files
-git clone https://github.com/akomis-e/config ~/repos/akomis-e/config
+git clone https://github.com/akomis-e/config ~/repos/akomis-e/dotfiles
+
 ### Lazyvim
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 
+	# sudo pacman -S 
+
+alias yayy="yay -Syu --noremovemake --answerclean None --answerdiff None"
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### common apps
-yay -S zen-browser-bin dropbox auto-cpufreq
+yayy -S zen-browser-bin dropbox auto-cpufreq
+
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user flathub org.keepassxc.KeePassXC
 ### battery performance tool:
 sudo auto-cpufreq --install
 ### --- --- --- --- --- --- --- --- --- --- ---
 
+
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### Programming stuff
+yayy -S scala3
+ln -s /usr/bin/scala3 ~/bin/scala
+### --- --- --- --- --- --- --- --- --- --- ---
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### FONTS
@@ -69,8 +89,9 @@ sudo pacman -Syu \
 	noto-fonts-cjk \
 	ttf-font-awesome \
 	ttf-dejavu ttf-liberation ttf-droid ttf-ubuntu-font-family
-yay -S noto-fonts-tc ttf-tw ttf-caladea ttf-carlito
+yayy -S noto-fonts-tc ttf-tw ttf-caladea ttf-carlito
 ### --- --- --- --- --- --- --- --- --- --- ---
+
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
@@ -87,22 +108,24 @@ chsh -s $(which zsh)
 sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ### --- --- --- --- --- --- --- --- --- --- ---
 
-
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### setting .config files
-ln -s ~/repos/akomis-e/config 		~/scripts
+ln -s ~/repos/akomis-e/dotfiles 	~/dotfiles
 ln -s ~/.config 					~/config
-ln -s ~/scripts/home/bin/			~/
+ln -s ~/dotfiles/home/bin/			~/bin
 mkdir -p \
 	~/bin \
 	~/Music/ \
 	~/.config/hardware \
 	~/.config/sway/scripts \
 	~/.config/wofi/ \
+	~/.config/xdg-desktop-portal/ \
 	~/.config/zsh/ \
 	~/.config/oh-my-zsh/custom/themes/ \
 	~/.config/alacritty/ \
 	~/.config/waybar/ \
+	~/.config/lf/ \
+	~/.config/yazi/ \
 	~/.config/mpd/ \
 	~/.config/rmpc/themes/
 #  ~/.config/nvim - already created by clonning LazyLua repo there
@@ -111,22 +134,36 @@ mv ~/.zsh*  				~/.config/zsh/
 mv ~/.oh-my-zsh*  			~/.config/oh-my-zsh/
 rm ~/.config/zsh/.zshrc
 
-ln ~/scripts/home/.zshenv 								~/
-ln ~/scripts/home/.config/zsh/.* 						~/.config/zsh/
-ln ~/scripts/home/.config/sway/* 						~/.config/sway/
-ln ~/scripts/home/.config/sway/scripts/* 				~/.config/sway/scripts/
-ln ~/scripts/home/.config/wofi/* 						~/.config/wofi/
-ln ~/scripts/home/.config/waybar/* 						~/.config/waybar/
-ln ~/scripts/home/.config/alacritty/* 					~/.config/alacritty/
-ln ~/scripts/home/.config/oh-my-zsh/custom/themes/* 	~/.config/oh-my-zsh/custom/themes/
-ln ~/scripts/home/.config/mpd/*							~/.config/mpd/
-ln ~/scripts/home/.config/rmpc/* 						~/.config/rmpc/
-ln ~/scripts/home/.config/rmpc/themes/* 				~/.config/rmpc/themes/
+# ?? remove alacritty?
+ln ~/dotfiles/home/.zshenv 								~/
+ln ~/dotfiles/home/.config/zsh/.* 						~/.config/zsh/
+ln ~/dotfiles/home/.config/sway/* 						~/.config/sway/
+ln ~/dotfiles/home/.config/sway/scripts/* 				~/.config/sway/scripts/
+ln ~/dotfiles/home/.config/wofi/* 						~/.config/wofi/
+ln ~/dotfiles/home/.config/xdg-desktop-portal/* 		~/.config/xdg-desktop-portal/
+ln ~/dotfiles/home/.config/waybar/* 					~/.config/waybar/
+ln ~/dotfiles/home/.config/ghostty/* 					~/.config/ghostty/
+ln ~/dotfiles/home/.config/alacritty/* 					~/.config/alacritty/
+ln ~/dotfiles/home/.config/oh-my-zsh/custom/themes/* 	~/.config/oh-my-zsh/custom/themes/
+ln ~/dotfiles/home/.config/lf/*							~/.config/lf/
+ln ~/dotfiles/home/.config/yazi/*						~/.config/yazi/
+ln ~/dotfiles/home/.config/mpd/*						~/.config/mpd/
+ln ~/dotfiles/home/.config/rmpc/* 						~/.config/rmpc/
+ln ~/dotfiles/home/.config/rmpc/themes/* 				~/.config/rmpc/themes/
 
 rm ~/.config/nvim/init.lua
-ln ~/scripts/home/.config/nvim/init.lua					~/.config/nvim/init.lua
-ln ~/scripts/home/.config/nvim/lua/plugins/*			~/.config/nvim/lua/plugins/
+ln ~/dotfiles/home/.config/nvim/init.lua				~/.config/nvim/init.lua
+ln ~/dotfiles/home/.config/nvim/lua/plugins/*			~/.config/nvim/lua/plugins/
 ### --- --- --- --- --- --- --- --- --- --- ---
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### yazi config
+### TODO remove yazi ???
+ya pkg add bennyyip/gruvbox-dark
+ya pkg add grappas/wl-clipboard
+### --- --- --- --- --- --- --- --- --- --- ---
+
+
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
@@ -139,14 +176,19 @@ exec sway
 EOF
 sudo chmod 755 /etc/lemurs/wayland/sway
 sudo mv /etc/lemurs/config.toml 		/etc/lemurs/config.toml.backup
-sudo ln -s ~/scripts/etc/config.toml 	/etc/lemurs/config.toml
+sudo ln -s ~/dotfiles/etc/config.toml 	/etc/lemurs/config.toml
 ### --- --- --- --- --- --- --- --- --- --- ---
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### TODO: 
+### --- --- --- --- --- --- --- --- --- --- ---
+
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 # TODO: setup hardware config in ~/.config/hardware
-#    using scripts from ~/scripts/home/hardware
-# ~/scripts/home/.config/hardware/lenovo-14AKP10.sh
+#    using scripts from ~/dotfiles/home/hardware
+# ~/dotfiles/home/.config/hardware/lenovo-14AKP10.sh
 ### --- --- --- --- --- --- --- --- --- --- ---
 
 ### --- --- --- --- --- --- --- --- --- --- ---
@@ -184,8 +226,28 @@ git config --global alias.coma   '!git checkout origin/main && git branch -f mai
 
 
 
+### --- --- --- --- --- --- --- --- --- --- ---
+### Set mime handlers
+# lists of .desktop files
+# 		la ~/.local/share/applications/
+# 		la /usr/share/applications/
+#
+# list of mime<->desktop app bindings
+# 		bat  ~/.config/mimeapps.list
+# 		nvim ~/.config/mimeapps.list
+#       bat ~/.local/share/applications/mimeapps.list
 
+# TODO 
+# to check: is .config empty by default?
+ln -s ~/.config/mimeapps.list ~/.local/share/applications/mimeapps.list
 
+handlr add inode/directory com.system76.CosmicFiles.desktop
+handlr set x-scheme-handler/terminal com.mitchellh.ghostty.desktop
+
+### --- --- --- --- --- --- --- --- --- --- ---
+
+# Install some of these?
+# https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
 
 
 

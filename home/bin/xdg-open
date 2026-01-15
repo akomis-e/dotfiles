@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# notify-send "xdg-open $@"
+handlr open "$@"
+

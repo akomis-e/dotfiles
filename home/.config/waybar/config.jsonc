@@ -19,7 +19,7 @@
         "exec": "date +'(%Y-%m-%d) %H:%M'",
         "interval": 60,
         "tooltip": false,
-        "on-click": "cal > notify-send "
+        // "on-click": "cal > notify-send "
     },
 
     "sway/window": {
