@@ -36,7 +36,7 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 sudo pacman -Syu \
 	base-devel acpi man-db lemurs\
 	impala handlr \
- 	dunst libnotify libappindicator wofi \
+ 	dunst libnotify libappindicator wofi xdg-desktop-portal \
 	cosmic-files \
 	git ghostty zsh neovim \
 	ueberzug graphicsmagick ghostscript \
@@ -166,6 +166,7 @@ ya pkg add grappas/wl-clipboard
 
 
 
+
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### changing loging/display manager to: lemurs
 sudo systemctl disable lightdm.service
@@ -175,9 +176,14 @@ cat << EOF | sudo tee /etc/lemurs/wayland/sway
 exec sway
 EOF
 sudo chmod 755 /etc/lemurs/wayland/sway
-sudo mv /etc/lemurs/config.toml 		/etc/lemurs/config.toml.backup
-sudo ln -s ~/dotfiles/etc/config.toml 	/etc/lemurs/config.toml
+sudo mv /etc/lemurs/config.toml 					/etc/lemurs/config.toml.backup
+sudo ln -s ~/dotfiles/etc/config.toml 				/etc/lemurs/config.toml
 ### --- --- --- --- --- --- --- --- --- --- ---
+sudo mkdir -p /etc/
+# sudo cp ~/dotfiles/etc/systemd/logind.conf.d/*					 	/etc/systemd/logind.conf.d/
+sudo cp ~/dotfiles/etc/systemd/logind.conf.d/ignore_lid_close.conf 		/etc/systemd/logind.conf.d/
+### --- --- --- --- --- --- --- --- --- --- ---
+
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### TODO: 

@@ -3,7 +3,9 @@
 # alias la="ls -lah --color=auto --group-directories-first"
 # alias la="rgrc ls -lA --group-directories-first"
 alias la="eza -al --group-directories-first"
-alias man="batman_p"
+alias bla="bat -p" # to allow appending b to 'la' command to view a file
+
+alias bman="batman_p"
 alias cat="bat -p"
 
 
@@ -16,6 +18,8 @@ alias gits="git status"
 alias p="print"
 alias o="handlr open"
 alias vi="nvim"
+
+
 
 alias inst="sudo pacman -Syu"
 
