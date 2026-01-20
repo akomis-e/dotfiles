@@ -134,6 +134,11 @@ mv ~/.zsh*  				~/.config/zsh/
 mv ~/.oh-my-zsh*  			~/.config/oh-my-zsh/
 rm ~/.config/zsh/.zshrc
 
+# (!!!) USE stow:
+# 		https://www.gnu.org/software/stow/manual/stow.html#Invoking-Stow
+# cd ~/dotfile/home/.config
+# stow --target ~/.config home/.config
+
 # ?? remove alacritty?
 ln ~/dotfiles/home/.zshenv 								~/
 ln ~/dotfiles/home/.config/zsh/.* 						~/.config/zsh/
