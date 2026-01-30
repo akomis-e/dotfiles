@@ -14,9 +14,11 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 # base-devel 		- req for yay
 # acpi				- to fetch battery info
 # man-db			- for some reason arch I tried didn't have it
+# tldr				- shortens man pages to few examples
 # lemurs			- login manager
 # impala			- wifi util
 # handlers			- tool for setting mime type bindings
+# stow 				- gnu tool to make hard links for dotfiles
 ### sway
 # dunst, libnotify 	- for notifications
 # libappindicator 	- tray icons support
@@ -34,8 +36,8 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 
 ### other apps
 sudo pacman -Syu \
-	base-devel acpi man-db lemurs\
-	impala handlr \
+	base-devel acpi man-db tldr lemurs\
+	impala handlr stow\
  	dunst libnotify libappindicator wofi xdg-desktop-portal \
 	cosmic-files \
 	git ghostty zsh neovim \
@@ -63,7 +65,7 @@ alias yayy="yay -Syu --noremovemake --answerclean None --answerdiff None"
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### common apps
-yayy -S zen-browser-bin dropbox auto-cpufreq
+yayy -S zen-browser-bin dropbox auto-cpufreq pinta
 
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install --user flathub org.keepassxc.KeePassXC
@@ -256,6 +258,10 @@ handlr add inode/directory com.system76.CosmicFiles.desktop
 handlr set x-scheme-handler/terminal com.mitchellh.ghostty.desktop
 
 ### --- --- --- --- --- --- --- --- --- --- ---
+# Zen Browser configs?
+# zen.view.use-single-toolbar = false
+# browser.urlbar.trimURLs = false
+
 
 # Install some of these?
 # https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools

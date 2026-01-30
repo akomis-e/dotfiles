@@ -1,4 +1,6 @@
 
+# going to directories was annoying
+setopt noautocd
 
 # alias la="ls -lah --color=auto --group-directories-first"
 # alias la="rgrc ls -lA --group-directories-first"
@@ -10,6 +12,7 @@ alias cat="bat -p"
 
 
 alias cdc="cd ~/.config"
+alias ppath="print $PATH | sed 's/:/\n/g'"
 
 ## MY GIT ALIASES
 alias gits="git status"
@@ -30,6 +33,7 @@ function sshag(){
 	ssh-add ~/.ssh/id_rsa
 }
 
+# don't really use yazi. Delete?
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
 	yazi "$@" --cwd-file="$tmp"
