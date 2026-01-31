@@ -31,10 +31,12 @@ border: none;
 #text {
 margin: 5px;
 border: none;
-color: #ebdbb2;
+color: #fabd2f;
 font-size: 18px; 
 }
 
 #entry:selected {
 background-color: #1d2021;
+/*background-color: #fabd2f;*/
+color: #af3a03;
 }

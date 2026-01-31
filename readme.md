@@ -1,6 +1,10 @@
 ## Fresh system setup
 ```bash
 
+### My dot files
+mkdir 	~/repos
+git clone https://github.com/akomis-e/config ~/repos/dotfiles
+
 sudo sh -c "echo LC_TIME='\"'en_GB.UTF-8'\"'" >> /etc/locale.conf
 
 # ARCH - install basic packages
@@ -15,56 +19,61 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 # acpi				- to fetch battery info
 # man-db			- for some reason arch I tried didn't have it
 # tldr				- shortens man pages to few examples
+# pacman-contrib	- utils for pacman, like 'paccache -r'
+# dysk				- tool to check disk usage
+
 # lemurs			- login manager
 # impala			- wifi util
 # handlers			- tool for setting mime type bindings
 # stow 				- gnu tool to make hard links for dotfiles
-### sway
+### sway setup
 # dunst, libnotify 	- for notifications
 # libappindicator 	- tray icons support
 # wofi				- menu to run stuff, tool for custom scripts
-###
 # cosmic-files 		- file manager
-### console stuff
-#   git neovim alacritty zsh
-# 	lf ueberzug graphicsmagick ghostscript
-# 	eza bat bottom procs zoxide ueberzugpp
-### utils for different file types, yazi file manager optional dependencies
-# 	7zip jq fd ffmpeg poppler ripgrep fzf resvg wl-clipboard chafa imagemagick yazi
-### music player setup
-# 	mpd rmpc cava
-
-### other apps
+# wl-clipboard
 sudo pacman -Syu \
-	base-devel acpi man-db tldr lemurs\
+	base-devel acpi man-db tldr \
+	pacman-contrib dysk\
 	impala handlr stow\
  	dunst libnotify libappindicator wofi xdg-desktop-portal \
+ 	wl-clipboard \
 	cosmic-files \
+	7zip \
+	qbittorrent 
+
+### terminal utils stuff
+sudo pacman -Syu \
 	git ghostty zsh neovim \
 	ueberzug graphicsmagick ghostscript \
-	eza bat bottom procs zoxide ueberzugpp \
-	7zip jq fd ffmpeg poppler ripgrep fzf resvg wl-clipboard chafa imagemagick yazi \
+	fzf jq fd eza bat bottom procs zoxide ueberzugpp ripgrep \
+	yazi \
+
+### multimedia things
+# 	mpd rmpc cava  	- music player setup
+#	chafa 			- cli tool to convert between formats
+# 	poppler 		- pdf viewer (and for other formats too)
+sudo pacman -Syu \
 	mpd rmpc cava \
-	gpicview mpv\
+	ffmpeg resvg imagemagick gpicview mpv\
+	chafa poppler\
 	qbittorrent flatpak firefox telegram-desktop discord 
 
+### retired:
+# lemurs
 
+
+### --- --- --- --- --- --- --- --- --- --- ---
 ### YAY	
 git clone https://aur.archlinux.org/yay-bin.git ~/repos/yay-bin && \
 	cd ~/repos/yay-bin && makepkg -si && cd ~
-### My dot files
-git clone https://github.com/akomis-e/config ~/repos/akomis-e/dotfiles
-
-### Lazyvim
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-
-
-	# sudo pacman -S 
-
 alias yayy="yay -Syu --noremovemake --answerclean None --answerdiff None"
+### --- --- --- --- --- --- --- --- --- --- ---
+
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### common apps
+yayy -S auto-cpufreq 
 yayy -S zen-browser-bin dropbox auto-cpufreq pinta
 
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -73,6 +82,9 @@ flatpak install --user flathub org.keepassxc.KeePassXC
 sudo auto-cpufreq --install
 ### --- --- --- --- --- --- --- --- --- --- ---
 
+
+### Lazyvim
+git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
@@ -114,7 +126,7 @@ sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools
 ### setting .config files
 ln -s ~/repos/akomis-e/dotfiles 	~/dotfiles
 ln -s ~/.config 					~/config
-ln -s ~/dotfiles/home/bin/			~/bin
+# ln -s ~/dotfiles/home/bin/			~/dotfiles-bin
 mkdir -p \
 	~/bin \
 	~/Music/ \
@@ -142,6 +154,12 @@ rm ~/.config/zsh/.zshrc
 # stow --target ~/.config home/.config
 
 # ?? remove alacritty?
+stow 
+
+## possible issues
+# - oh-my-zsh? nope. Should fit in without issues
+
+
 ln ~/dotfiles/home/.zshenv 								~/
 ln ~/dotfiles/home/.config/zsh/.* 						~/.config/zsh/
 ln ~/dotfiles/home/.config/sway/* 						~/.config/sway/

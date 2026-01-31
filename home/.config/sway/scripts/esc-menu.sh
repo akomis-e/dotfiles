@@ -12,7 +12,7 @@ fi
 
 CMD_INPUT=$(
 	printf '%s\n' '1) suspend' "$SHUTDOWN_CMD" '3) reboot' '4) sway: logout' | \
-	wofi -W 400 --show dmenu -L 5 -p 'select action' -O alphabetical
+	wofi -E -W 400 --show dmenu -L 5 -p 'select action' -O alphabetical
 )
 
 case $CMD_INPUT in
