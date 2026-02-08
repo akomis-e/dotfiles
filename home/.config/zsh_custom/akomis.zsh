@@ -61,3 +61,20 @@ batman_p() {
 
 
 # ls -AFoqv --color --group-directories-first
+
+# to make LS show all dot files at the top
+export LC_COLLATE="C"
+
+export PATH="${HOME}/.local/bin/:${HOME}/bin/:${HOME}/dotfiles/bin/:${HOME}/.cargo/bin:${PATH}"
+
+ZSH_THEME="akomis"
+
+plugins=(
+	git
+	aliases
+	battery
+	fzf
+	# zsh-autocomplete
+)
+
+eval "$(zoxide init zsh)"

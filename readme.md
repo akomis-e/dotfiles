@@ -34,8 +34,9 @@ echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable
 # wl-clipboard
 sudo pacman -Syu \
 	base-devel acpi man-db tldr \
-	pacman-contrib dysk\
-	impala handlr stow\
+	pacman-contrib dysk \
+	impala handlr stow \
+	brightnessctl \
  	dunst libnotify libappindicator wofi xdg-desktop-portal \
  	wl-clipboard \
 	cosmic-files \
@@ -110,7 +111,7 @@ yayy -S noto-fonts-tc ttf-tw ttf-caladea ttf-carlito
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### sublime text setup: 
-# 1) install package control, then sync-settings plugin
+# 1) install package control, then sync settings plugin
 # 2) open settings file, add: 	{"access_token": "...", "gist_id": "...",}
 ### --- --- --- --- --- --- --- --- --- --- ---
 
@@ -119,8 +120,17 @@ yayy -S noto-fonts-tc ttf-tw ttf-caladea ttf-carlito
 ### setting terminal
 chsh -s $(which zsh)
 ### oh-my-zsh -- https://github.com/ohmyzsh/ohmyzsh/wiki
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# setting ZSH to alter installation path
+ZSH="$HOME/.dotfiles/oh-my-zsh" \
+	sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ### --- --- --- --- --- --- --- --- --- --- ---
+
+mv ~/.zsh*  				~/.config/zsh/
+mv ~/.oh-my-zsh*  			~/.config/oh-my-zsh/
+
+rm ~/.config/zsh/.zshrc
+rm ~/.config/nvim/init.lua
+stow -v -d ~/dotfiles/ -t ~ home
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### setting .config files
@@ -144,9 +154,6 @@ mkdir -p \
 	~/.config/rmpc/themes/
 #  ~/.config/nvim - already created by clonning LazyLua repo there
 
-mv ~/.zsh*  				~/.config/zsh/
-mv ~/.oh-my-zsh*  			~/.config/oh-my-zsh/
-rm ~/.config/zsh/.zshrc
 
 # (!!!) USE stow:
 # 		https://www.gnu.org/software/stow/manual/stow.html#Invoking-Stow
@@ -154,7 +161,16 @@ rm ~/.config/zsh/.zshrc
 # stow --target ~/.config home/.config
 
 # ?? remove alacritty?
-stow 
+
+# init.lua already exists
+rm  ~/.config/nvim/init.lua
+
+### running stow
+# SRC: ~/dotlifes
+# TRG: ~
+# package to sync: 'home' folder 
+stow -v -d ~/dotfiles/ -t ~ home
+
 
 ## possible issues
 # - oh-my-zsh? nope. Should fit in without issues
@@ -204,8 +220,9 @@ sudo chmod 755 /etc/lemurs/wayland/sway
 sudo mv /etc/lemurs/config.toml 					/etc/lemurs/config.toml.backup
 sudo ln -s ~/dotfiles/etc/config.toml 				/etc/lemurs/config.toml
 ### --- --- --- --- --- --- --- --- --- --- ---
-sudo mkdir -p /etc/
+# sudo mkdir -p /etc/
 # sudo cp ~/dotfiles/etc/systemd/logind.conf.d/*					 	/etc/systemd/logind.conf.d/
+sudo mkdir /etc/systemd/logind.conf.d
 sudo cp ~/dotfiles/etc/systemd/logind.conf.d/ignore_lid_close.conf 		/etc/systemd/logind.conf.d/
 ### --- --- --- --- --- --- --- --- --- --- ---
 
