@@ -10,6 +10,7 @@ alias bla="bat -p" # to allow appending b to 'la' command to view a file
 alias bman="batman_p"
 alias cat="bat -p"
 
+alias ..="cd .."
 
 alias cdc="cd ~/.config"
 alias ppath="print $PATH | sed 's/:/\n/g'"

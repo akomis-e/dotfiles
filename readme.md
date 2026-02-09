@@ -1,20 +1,41 @@
 ## Fresh system setup
 ```bash
 
-### My dot files
+### --- --- --- --- --- --- --- --- --- --- ---
+### dotfiles repo
+### --- --- --- --- --- --- --- --- --- --- ---
 mkdir 	~/repos
 git clone https://github.com/akomis-e/config ~/repos/dotfiles
+git clone https://codeberg.org/akomis-e/config ~/repos/dotfiles
 
+ln -s ~/repos/akomis-e/dotfiles 	~/dotfiles
+### --- --- --- --- --- --- --- --- --- --- ---
+
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### system config
+### --- --- --- --- --- --- --- --- --- --- ---
+# may be not needed on some distros
 sudo sh -c "echo LC_TIME='\"'en_GB.UTF-8'\"'" >> /etc/locale.conf
+### --- --- --- --- --- --- --- --- --- --- ---
+# setup hardware config from dotfiles
+~/dotfiles/hardware/hardware_set.sh
+### --- --- --- --- --- --- --- --- --- --- ---
 
-# ARCH - install basic packages
+
+### --- --- --- --- --- --- --- --- --- --- ---
 ### sublime text
+### --- --- --- --- --- --- --- --- --- --- ---
 curl -O https://download.sublimetext.com/sublimehq-pub.gpg && \
 	sudo pacman-key --add sublimehq-pub.gpg && \
 	sudo pacman-key --lsign-key 8A8F901A && rm sublimehq-pub.gpg
 echo -e "\n[sublime-text]\nServer = https://download.sublimetext.com/arch/stable/x86_64" | sudo tee -a /etc/pacman.conf
+### --- --- --- --- --- --- --- --- --- --- ---
 
+
+### --- --- --- --- --- --- --- --- --- --- ---
 ### core utils
+### --- --- --- --- --- --- --- --- --- --- ---
 # base-devel 		- req for yay
 # acpi				- to fetch battery info
 # man-db			- for some reason arch I tried didn't have it
@@ -45,7 +66,8 @@ sudo pacman -Syu \
 
 ### terminal utils stuff
 sudo pacman -Syu \
-	git ghostty zsh neovim \
+	git git-delta \
+	ghostty zsh neovim \
 	ueberzug graphicsmagick ghostscript \
 	fzf jq fd eza bat bottom procs zoxide ueberzugpp ripgrep \
 	yazi \
@@ -59,13 +81,12 @@ sudo pacman -Syu \
 	ffmpeg resvg imagemagick gpicview mpv\
 	chafa poppler\
 	qbittorrent flatpak firefox telegram-desktop discord 
-
-### retired:
-# lemurs
+### --- --- --- --- --- --- --- --- --- --- ---
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### YAY	
+### --- --- --- --- --- --- --- --- --- --- ---
 git clone https://aur.archlinux.org/yay-bin.git ~/repos/yay-bin && \
 	cd ~/repos/yay-bin && makepkg -si && cd ~
 alias yayy="yay -Syu --noremovemake --answerclean None --answerdiff None"
@@ -74,6 +95,7 @@ alias yayy="yay -Syu --noremovemake --answerclean None --answerdiff None"
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### common apps
+### --- --- --- --- --- --- --- --- --- --- ---
 yayy -S auto-cpufreq 
 yayy -S zen-browser-bin dropbox auto-cpufreq pinta
 
@@ -83,16 +105,6 @@ flatpak install --user flathub org.keepassxc.KeePassXC
 sudo auto-cpufreq --install
 ### --- --- --- --- --- --- --- --- --- --- ---
 
-
-### Lazyvim
-git clone https://github.com/LazyVim/starter ~/.config/nvim
-
-
-### --- --- --- --- --- --- --- --- --- --- ---
-### Programming stuff
-yayy -S scala3
-ln -s /usr/bin/scala3 ~/bin/scala
-### --- --- --- --- --- --- --- --- --- --- ---
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### FONTS
@@ -108,107 +120,130 @@ yayy -S noto-fonts-tc ttf-tw ttf-caladea ttf-carlito
 ### --- --- --- --- --- --- --- --- --- --- ---
 
 
-
-### --- --- --- --- --- --- --- --- --- --- ---
-### sublime text setup: 
-# 1) install package control, then sync settings plugin
-# 2) open settings file, add: 	{"access_token": "...", "gist_id": "...",}
-### --- --- --- --- --- --- --- --- --- --- ---
-
-
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### setting terminal
+### --- --- --- --- --- --- --- --- --- --- ---
 chsh -s $(which zsh)
+### Lazyvim
+git clone https://github.com/LazyVim/starter ~/.config/nvim
 ### oh-my-zsh -- https://github.com/ohmyzsh/ohmyzsh/wiki
+
+# -oh-my-zsh is already installe on cashos
 # setting ZSH to alter installation path
-ZSH="$HOME/.dotfiles/oh-my-zsh" \
-	sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# ZSH="$HOME/.dotfiles/oh-my-zsh" \
+	# sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ### --- --- --- --- --- --- --- --- --- --- ---
 
-mv ~/.zsh*  				~/.config/zsh/
-mv ~/.oh-my-zsh*  			~/.config/oh-my-zsh/
-
-rm ~/.config/zsh/.zshrc
-rm ~/.config/nvim/init.lua
-stow -v -d ~/dotfiles/ -t ~ home
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### setting .config files
+### --- --- --- --- --- --- --- --- --- --- ---
 ln -s ~/repos/akomis-e/dotfiles 	~/dotfiles
 ln -s ~/.config 					~/config
 # ln -s ~/dotfiles/home/bin/			~/dotfiles-bin
 mkdir -p \
 	~/bin \
 	~/Music/ \
-	~/.config/hardware \
-	~/.config/sway/scripts \
-	~/.config/wofi/ \
-	~/.config/xdg-desktop-portal/ \
-	~/.config/zsh/ \
-	~/.config/oh-my-zsh/custom/themes/ \
-	~/.config/alacritty/ \
-	~/.config/waybar/ \
-	~/.config/lf/ \
-	~/.config/yazi/ \
-	~/.config/mpd/ \
-	~/.config/rmpc/themes/
-#  ~/.config/nvim - already created by clonning LazyLua repo there
+	~/Pictures/ \
+	~/Videos/
+### --- --- --- --- --- --- --- --- --- --- ---
 
 
-# (!!!) USE stow:
-# 		https://www.gnu.org/software/stow/manual/stow.html#Invoking-Stow
-# cd ~/dotfile/home/.config
-# stow --target ~/.config home/.config
-
-# ?? remove alacritty?
-
-# init.lua already exists
+### --- --- --- --- --- --- --- --- --- --- ---
+### Stow
+### --- --- --- --- --- --- --- --- --- --- ---
+# Remove conflicting files
 rm  ~/.config/nvim/init.lua
-
-### running stow
-# SRC: ~/dotlifes
-# TRG: ~
-# package to sync: 'home' folder 
+### --- --- --- --- --- --- --- --- --- --- ---
+# SRC: 					~/dotlifes
+# TRG: 					~
+# package to sync: 		home
 stow -v -d ~/dotfiles/ -t ~ home
-
-
-## possible issues
-# - oh-my-zsh? nope. Should fit in without issues
-
-
-ln ~/dotfiles/home/.zshenv 								~/
-ln ~/dotfiles/home/.config/zsh/.* 						~/.config/zsh/
-ln ~/dotfiles/home/.config/sway/* 						~/.config/sway/
-ln ~/dotfiles/home/.config/sway/scripts/* 				~/.config/sway/scripts/
-ln ~/dotfiles/home/.config/wofi/* 						~/.config/wofi/
-ln ~/dotfiles/home/.config/xdg-desktop-portal/* 		~/.config/xdg-desktop-portal/
-ln ~/dotfiles/home/.config/waybar/* 					~/.config/waybar/
-ln ~/dotfiles/home/.config/ghostty/* 					~/.config/ghostty/
-ln ~/dotfiles/home/.config/alacritty/* 					~/.config/alacritty/
-ln ~/dotfiles/home/.config/oh-my-zsh/custom/themes/* 	~/.config/oh-my-zsh/custom/themes/
-ln ~/dotfiles/home/.config/lf/*							~/.config/lf/
-ln ~/dotfiles/home/.config/yazi/*						~/.config/yazi/
-ln ~/dotfiles/home/.config/mpd/*						~/.config/mpd/
-ln ~/dotfiles/home/.config/rmpc/* 						~/.config/rmpc/
-ln ~/dotfiles/home/.config/rmpc/themes/* 				~/.config/rmpc/themes/
-
-rm ~/.config/nvim/init.lua
-ln ~/dotfiles/home/.config/nvim/init.lua				~/.config/nvim/init.lua
-ln ~/dotfiles/home/.config/nvim/lua/plugins/*			~/.config/nvim/lua/plugins/
-### --- --- --- --- --- --- --- --- --- --- ---
-
-### --- --- --- --- --- --- --- --- --- --- ---
-### yazi config
-### TODO remove yazi ???
-ya pkg add bennyyip/gruvbox-dark
-ya pkg add grappas/wl-clipboard
 ### --- --- --- --- --- --- --- --- --- --- ---
 
 
+### --- --- --- --- --- --- --- --- --- ---
+### Login to Dropbox
+### --- --- --- --- --- --- --- --- --- ---
+ln -s ~/Dropbox/hlib/music 				~/Music/library
+ln -s ~/Dropbox/hlib/music_pl 			~/Music/playlists
+# sublime text config: 
+ln -s ~/Dropbox/hlib/sublime_text/User 	~/config/sublime-text/Packages
+### --- --- --- --- --- --- --- --- --- --- ---
+### Copt folders (from usb, TODO: NextCloud): Pictures, Videos 
+### --- --- --- --- --- --- --- --- --- --- ---
+
+
+### --- --- --- --- --- --- --- --- --- --- ---
+# Login to google accs, viber, telegram, etc...
+### --- --- --- --- --- --- --- --- --- --- ---
+
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### Set mime handlers
+# lists of .desktop files
+# 		la ~/.local/share/applications/
+# 		la /usr/share/applications/
+#
+# list of mime<->desktop app bindings
+# 		bat  ~/.config/mimeapps.list
+# 		nvim ~/.config/mimeapps.list
+#       bat ~/.local/share/applications/mimeapps.list
+### --- --- --- --- --- --- --- --- --- --- ---
+# TODO: to check: is .config empty by default?
+# ln -s ~/.config/mimeapps.list ~/.local/share/applications/mimeapps.list
+
+# handlr add inode/directory com.system76.CosmicFiles.desktop
+handlr set x-scheme-handler/terminal com.mitchellh.ghostty.desktop
+### --- --- --- --- --- --- --- --- --- --- ---
 
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
+### Zen Browser configs
+### --- --- --- --- --- --- --- --- --- --- ---
+# Add search engines
+### --- --- --- --- --- --- --- --- --- --- ---
+# zen.view.use-single-toolbar = false
+# browser.urlbar.trimURLs = false
+# zen.window-sync.enabled = false
+### --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### Programming stuff
+### --- --- --- --- --- --- --- --- --- --- ---
+yayy -S scala3
+ln -s /usr/bin/scala3 ~/bin/scala
+
+# scala-cli : https://scala-cli.virtuslab.org/install
+curl -sSLf https://scala-cli.virtuslab.org/get | sh
+ln -s /home/akomis/.cache/scalacli/local-repo/bin/scala-cli/scala-cli ~/bin/scala-cli
+### --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+
+
+
+
+
+
+
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### --- --- --- --- --- --- --- --- --- --- ---
+### DEPRECATED THINGS
+### tried once, don't use it anymore
+### --- --- --- --- --- --- --- --- --- --- ---
+### --- --- --- --- --- --- --- --- --- --- ---
+
+
+
+### --- --- --- --- --- --- --- --- --- --- ---
+### ??? Setup login manager ???
 ### changing loging/display manager to: lemurs
 sudo systemctl disable lightdm.service
 sudo systemctl enable lemurs.service
@@ -227,101 +262,10 @@ sudo cp ~/dotfiles/etc/systemd/logind.conf.d/ignore_lid_close.conf 		/etc/system
 ### --- --- --- --- --- --- --- --- --- --- ---
 
 
-### --- --- --- --- --- --- --- --- --- --- ---
-### TODO: 
-### --- --- --- --- --- --- --- --- --- --- ---
-
-
 
 ### --- --- --- --- --- --- --- --- --- --- ---
-# TODO: setup hardware config in ~/.config/hardware
-#    using scripts from ~/dotfiles/home/hardware
-# ~/dotfiles/home/.config/hardware/lenovo-14AKP10.sh
+### yazi config
+### TODO remove yazi ???
+ya pkg add bennyyip/gruvbox-dark
+ya pkg add grappas/wl-clipboard
 ### --- --- --- --- --- --- --- --- --- --- ---
-
-### --- --- --- --- --- --- --- --- --- --- ---
-# TODO: 
-# login to google accs, dropbox(set proper sync), viber, telegram, etc...
-### --- --- --- --- --- --- --- --- --- --- ---
-
-
-### --- --- --- --- --- --- --- --- --- ---
-### setting up personal files
-ln -s ~/Dropbox/hlib/music 			~/Music/library
-ln -s ~/Dropbox/hlib/music_pl 		~/Music/playlists
-### TODO copy pictures, videos from usb
-### --- --- --- --- --- --- --- --- --- --- ---
-
-### --- --- --- --- --- --- --- --- --- --- ---
-### Git config
-git config --global core.editor nvim
-git config --global user.email "greyakomis@gmail.com"
-git config --global user.name "akomis"
-
-git config --global alias.pullff pull --ff
-git config --global alias.co     checkout
-git config --global alias.dc     diff --cached
-git config --global alias.cob    checkout -b
-git config --global alias.ba     branch -a
-git config --global alias.diffc  diff --cached
-git config --global alias.logg   '!git log --oneline --pretty=format:'"'"'%C(#774477)%h %C(#555555)%ar %C(#aaaaaa)%s %C(auto)%d%C(#555555)/ %an'"'"''
-git config --global alias.cod    '!git checkout origin/develop && git branch -f develop && git checkout develop'
-git config --global alias.com    '!git checkout origin/master && git branch -f master && git checkout master'
-git config --global alias.coma   '!git checkout origin/main && git branch -f main && git checkout main'
-# git config --global alias.loga   "log --oneline --graph --pretty=format:\"%C(#774477)%h %C(#555555)%ar %C(#aaaaaa)%s %C(auto)%d%C(#555555)/ %an\""
-### --- --- --- --- --- --- --- --- --- --- ---
-
-
-
-
-### --- --- --- --- --- --- --- --- --- --- ---
-### Set mime handlers
-# lists of .desktop files
-# 		la ~/.local/share/applications/
-# 		la /usr/share/applications/
-#
-# list of mime<->desktop app bindings
-# 		bat  ~/.config/mimeapps.list
-# 		nvim ~/.config/mimeapps.list
-#       bat ~/.local/share/applications/mimeapps.list
-
-# TODO 
-# to check: is .config empty by default?
-ln -s ~/.config/mimeapps.list ~/.local/share/applications/mimeapps.list
-
-handlr add inode/directory com.system76.CosmicFiles.desktop
-handlr set x-scheme-handler/terminal com.mitchellh.ghostty.desktop
-
-### --- --- --- --- --- --- --- --- --- --- ---
-# Zen Browser configs?
-# zen.view.use-single-toolbar = false
-# browser.urlbar.trimURLs = false
-
-
-# Install some of these?
-# https://wiki.archlinux.org/title/List_of_applications/Utilities#Archiving_and_compression_tools
-
-
-
-
-# ## --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-# # FEDORA
-# # 
-# # acpi 			- tool for battery info
-# # nm-applet 	- graphical tool for managing network connections 
-# sudo dnf install -y sway waybar wofi alacritty zsh acpi
-
-## --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-### pipewire
-sudo dnf install -y pipewire pipewire-audio pipewire-alsa pipewire-pulse pipewire-config-raop pipewire-pulseaudio pipewire-utils pipewire-gstreamer pavucontrol wireplumber qpwgraph
-# stop pulseaudio.service
-# start pipewire-pulse.service
-# https://wiki.archlinux.org/title/PipeWire#Troubleshooting
-## --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-## COOL RUST UTILS
-cargo install exa
-cargo install bat
-cargo install bottom  # to use - btm
-cargo install procs
-cargo install zoxide
-```

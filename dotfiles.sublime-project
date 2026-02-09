@@ -7,5 +7,13 @@
 		{
 			"path": "~/bin"
 		}
-	]
+	],
+	
+    "syntax_override": {
+    	"\\.sway.conf$": ["ShellScript", "Bash"],
+    	"\\.zsh-theme$": ["ShellScript", "Bash"],
+    	"log_format$": ["ShellScript", "Zsh"],
+    	"config$": ["ShellScript", "Bash"],
+    	"[a-zA-Z]+rc$": ["ShellScript", "Bash"]
+    }
 }

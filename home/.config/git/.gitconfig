@@ -1,0 +1,27 @@
+[user]
+    email = greyakomis@gmail.com
+    name = akomis
+[alias]
+    pullff = pull
+    co = checkout
+    dc = diff
+    cob = checkout
+    ba = branch
+    dc = diff --cached
+    diffc = diff --cached
+    cod = !git checkout origin/develop && git branch -f develop && git checkout develop
+    com = !git checkout origin/master && git branch -f master && git checkout master
+    coma = !git checkout origin/main && git branch -f main && git checkout main
+    logg = "!git log --oneline --pretty=format:'%C(#774477)%h %C(#555555)%ar %C(#aaaaaa)%s %C(auto)%d%C(#555555)/ %an'"
+
+[core]
+    editor = nvim
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    file-decoration-style = bold yellow box ul
+    file-style = bold orange box ul
+[merge]
+    conflictStyle = zdiff3

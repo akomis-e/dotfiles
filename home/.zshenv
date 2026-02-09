@@ -6,6 +6,9 @@ export TERMINAL=alacritty
 export EDITOR=nvim
 export IMAGE_VIEWER=sxiv
 
+
+export QT_QPA_PLATFORMTHEME=qt6ct
+
 export LC_COLLATE="C"
 export NNN_FIFO=/tmp/nnn.fifo
 
