@@ -20,6 +20,12 @@ sudo sh -c "echo LC_TIME='\"'en_GB.UTF-8'\"'" >> /etc/locale.conf
 ### --- --- --- --- --- --- --- --- --- --- ---
 # setup hardware config from dotfiles
 ~/dotfiles/hardware/hardware_set.sh
+
+mkdir -p \
+	~/bin \
+	~/Music/ \
+	~/Pictures/ \
+	~/Videos/
 ### --- --- --- --- --- --- --- --- --- --- ---
 
 
@@ -78,7 +84,7 @@ sudo pacman -Syu \
 # 	poppler 		- pdf viewer (and for other formats too)
 sudo pacman -Syu \
 	mpd rmpc cava \
-	ffmpeg resvg imagemagick gpicview mpv\
+	ffmpeg resvg imagemagick gpicview mpv sxiv\
 	chafa poppler\
 	qbittorrent flatpak firefox telegram-desktop discord 
 ### --- --- --- --- --- --- --- --- --- --- ---
@@ -136,21 +142,7 @@ git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
-### setting .config files
-### --- --- --- --- --- --- --- --- --- --- ---
-ln -s ~/repos/akomis-e/dotfiles 	~/dotfiles
-ln -s ~/.config 					~/config
-# ln -s ~/dotfiles/home/bin/			~/dotfiles-bin
-mkdir -p \
-	~/bin \
-	~/Music/ \
-	~/Pictures/ \
-	~/Videos/
-### --- --- --- --- --- --- --- --- --- --- ---
-
-
-### --- --- --- --- --- --- --- --- --- --- ---
-### Stow
+### setting .config files with stow
 ### --- --- --- --- --- --- --- --- --- --- ---
 # Remove conflicting files
 rm  ~/.config/nvim/init.lua
@@ -196,17 +188,41 @@ ln -s ~/Dropbox/hlib/sublime_text/User 	~/config/sublime-text/Packages
 # handlr add inode/directory com.system76.CosmicFiles.desktop
 handlr set x-scheme-handler/terminal com.mitchellh.ghostty.desktop
 ### --- --- --- --- --- --- --- --- --- --- ---
+# man 5 portals.conf
+# ~/.config/xdg-desktop-portal/p
+### --- --- --- --- --- --- --- --- --- --- ---
 
 
 
 ### --- --- --- --- --- --- --- --- --- --- ---
 ### Zen Browser configs
 ### --- --- --- --- --- --- --- --- --- --- ---
-# Add search engines
-### --- --- --- --- --- --- --- --- --- --- ---
 # zen.view.use-single-toolbar = false
 # browser.urlbar.trimURLs = false
 # zen.window-sync.enabled = false
+### --- --- --- --- --- --- --- --- --- --- ---
+### Add search engines
+### --- --- --- --- --- --- --- --- --- --- ---
+# google(-ai)
+# https://www.google.com/search?q=-ai+%s
+#
+# @ud
+# https://www.urbandictionary.com/define.php?term=%s
+#
+# @man
+# https://man.cx/%s
+#
+# @kym
+# https://knowyourmeme.com/search?q=%s
+#
+# @yt
+# https://www.youtube.com/watch?v=%s
+#
+# @tenor
+# https://tenor.com/en-GB/search/%s
+#
+# @rs
+# https://rapidsave.com/info?url=%s
 ### --- --- --- --- --- --- --- --- --- --- ---
 
 
